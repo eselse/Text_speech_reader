@@ -39,3 +39,46 @@ function createBox(item) {
 
   main.appendChild(box);
 }
+
+// Store voices
+
+let voices = [];
+
+function getVoices() {
+  voices = window.speechSynthesis.getVoices();
+
+  voices.sort(function (a, b) {
+    if (a.name > b.name) {
+      return 1;
+    }
+    if (a.name < b.name) {
+      return -1;
+    }
+    return 0;
+  });
+  voices.forEach((voice) => {
+    const option = document.createElement("option");
+    option.value = voice.name;
+    option.innerText = `${voice.name} ${voice.lang}`;
+
+    voicesSelect.appendChild(option);
+  });
+}
+
+// Event listeners ===============================================================
+// Voices changed
+speechSynthesis.addEventListener("voiceschanged", () => {
+  const voices = speechSynthesis.getVoices();
+});
+
+// Toggle text box
+toggleBtn.addEventListener("click", () =>
+  document.getElementById("text-box").classList.toggle("show")
+);
+
+// Close button
+closeBtn.addEventListener("click", () =>
+  document.getElementById("text-box").classList.remove("show")
+);
+
+getVoices();
