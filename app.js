@@ -84,6 +84,11 @@ function speakText() {
   speechSynthesis.speak(message);
 }
 
+// Set voice
+function setVoice(e) {
+  message.voice = voice.find((voice) => voice.name === e.target.value);
+}
+
 // Event listeners ===============================================================
 // Voices changed
 speechSynthesis.addEventListener("voiceschanged", () => {
@@ -99,5 +104,14 @@ toggleBtn.addEventListener("click", () =>
 closeBtn.addEventListener("click", () =>
   document.getElementById("text-box").classList.remove("show")
 );
+
+// Change voice
+voicesSelect.addEventListener("change", setVoice);
+
+// Read text button
+readBtn.addEventListener('click', () => {
+  setTextMessage(textArea.value)
+  speakText()
+});
 
 getVoices();
